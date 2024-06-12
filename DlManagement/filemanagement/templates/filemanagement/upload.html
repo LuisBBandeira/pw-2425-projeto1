@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File</title>
+    <style>
+        .drag-and-drop {
+            border: 2px dashed #ccc;
+            border-radius: 20px;
+            width: 300px;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            font-size: 20px;
+            color: #ccc;
+            margin: 20px auto;
+        }
+        .drag-and-drop.dragover {
+            border-color: #333;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload File</h1>
+    <form id="upload-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="drag-and-drop" id="drag-and-drop">
+            Drag and drop a file here or click to select a file
+        </div>
+        <input type="file" id="file-input" name="file" style="display: none;">
+        <button type="submit">Upload</button>
+    </form>
+    <h2>Uploaded Files</h2>
+    <ul>
+        {% for file in files %}
+            <li><a href="{% url 'download_file' file.id %}">{{ file.file.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        const dragAndDrop = document.getElementById('drag-and-drop');
+        const fileInput = document.getElementById('file-input');
+        const uploadForm = document.getElementById('upload-form');
+
+        dragAndDrop.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                uploadForm.submit();
+            }
+        });
+
+        dragAndDrop.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            dragAndDrop.classList.add('dragover');
+        });
+
+        dragAndDrop.addEventListener('dragleave', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            dragAndDrop.classList.remove('dragover');
+        });
+
+        dragAndDrop.addEventListener('drop', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            dragAndDrop.classList.remove('dragover');
+
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                uploadForm.submit();
+            }
+        });
+    </script>
+</body>
+</html>
