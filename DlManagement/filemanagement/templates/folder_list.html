@@ -1,0 +1,10 @@
+
+{% block content %}
+<h1>Folders{% if parent_folder %} in {{ parent_folder.name }}{% endif %}</h1>
+<ul>
+    {% for folder in folders %}
+    <li><a href="{% url 'folder_list' folder.id %}">{{ folder.name }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
