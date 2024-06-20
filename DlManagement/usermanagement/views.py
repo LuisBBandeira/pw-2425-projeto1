@@ -6,6 +6,8 @@ from .forms import LoginForm
 from .forms import RegisterForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.urls import reverse
+from .decorators import staff_redirect
 
 
 @method_decorator(login_required, name='dispatch')
@@ -17,17 +19,22 @@ class LogOut():
         logout(request)
         return redirect('sign_in')
     
+@staff_redirect
 class SignIn():
     def sign_in(request):
         if request.method == 'POST':
             form = LoginForm(request, data=request.POST)
             if form.is_valid():
-                login(request, form.get_user())
+                user = form.get_user()
+                login(request, user)
+                if user.is_staff:
+                    return redirect(reverse('admin:index'))
                 return redirect('home')
         else:
             form = LoginForm()
         return render(request, 'sign_in.html', {'form': form})
-    
+
+@staff_redirect   
 class SignUp():
     def sign_up(request):
         if request.method == 'POST':

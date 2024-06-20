@@ -4,8 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .models import UploadedFile , Folder
 from .forms import UploadFileForm , FolderForm
+from usermanagement.decorators import staff_redirect
 
 @login_required
+@staff_redirect
 def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
@@ -21,6 +23,7 @@ def upload_file(request):
     return render(request, 'upload.html', {'form': form, 'files': files})
 
 @login_required
+@staff_redirect
 def download_file(request, file_id):
     uploaded_file = get_object_or_404(UploadedFile, id=file_id, user=request.user)
     response = HttpResponse(uploaded_file.file, content_type='application/octet-stream')
@@ -28,6 +31,7 @@ def download_file(request, file_id):
     return response
 
 @login_required
+@staff_redirect
 def folder_list(request, parent_id=None):
     if parent_id:
         parent_folder = get_object_or_404(Folder, id=parent_id, owner=request.user)
@@ -38,6 +42,7 @@ def folder_list(request, parent_id=None):
     return render(request, 'folder_list.html', {'folders': folders, 'parent_folder': parent_folder})
 
 @login_required
+@staff_redirect
 def create_folder(request, parent_id=None):
     if parent_id:
         parent_folder = get_object_or_404(Folder, id=parent_id, owner=request.user)

@@ -1,0 +1,15 @@
+.drag-and-drop {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    width: 300px;
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+    font-size: 20px;
+    color: #ccc;
+    margin: 20px auto;
+}
+.drag-and-drop.dragover {
+    border-color: #333;
+    color: #333;
+}
