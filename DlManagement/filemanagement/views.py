@@ -32,19 +32,20 @@ def download_file(request, file_id):
 
 @login_required
 @staff_redirect
-def folder_list(request, parent_id=None):
-    if parent_id:
+def folder_list(request, parent_id=0):
+    if parent_id != 0:
         parent_folder = get_object_or_404(Folder, id=parent_id, owner=request.user)
         folders = parent_folder.subfolders.filter(owner=request.user)
     else:
         parent_folder = None
         folders = Folder.objects.filter(parent__isnull=True, owner=request.user)
+    
     return render(request, 'folder_list.html', {'folders': folders, 'parent_folder': parent_folder})
 
 @login_required
 @staff_redirect
-def create_folder(request, parent_id=None):
-    if parent_id:
+def create_folder(request, parent_id=0):
+    if parent_id != 0:
         parent_folder = get_object_or_404(Folder, id=parent_id, owner=request.user)
     else:
         parent_folder = None
@@ -56,8 +57,16 @@ def create_folder(request, parent_id=None):
             folder.parent = parent_folder
             folder.owner = request.user
             folder.save()
-            return redirect('folder_list', parent_id=parent_folder.id if parent_folder else '')
+            return redirect('folder_list', parent_id=parent_folder.id if parent_folder else 0)
     else:
         form = FolderForm(initial={'parent': parent_folder})
 
     return render(request, 'create_folder.html', {'form': form, 'parent_folder': parent_folder})
+
+@login_required
+@staff_redirect
+def delete_folder(request, folder_id):
+    folder = get_object_or_404(Folder, id=folder_id, owner=request.user)
+    parent_id = folder.parent.id if folder.parent else 0
+    folder.delete()
+    return redirect('folder_list', parent_id=parent_id)
