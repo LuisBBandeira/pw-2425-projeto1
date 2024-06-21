@@ -1,23 +1,12 @@
 {% extends "base.html" %}
 
+{% block head %}
+{% load static %}
+{% comment %} <script src="{% static 'script.js' %}"></script> {% endcomment %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/upload.css' %}">
+{% endblock %}
+
 {% block content %}
-    <style>
-        .drag-and-drop {
-            border: 2px dashed #ccc;
-            border-radius: 20px;
-            width: 300px;
-            height: 200px;
-            line-height: 200px;
-            text-align: center;
-            font-size: 20px;
-            color: #ccc;
-            margin: 20px auto;
-        }
-        .drag-and-drop.dragover {
-            border-color: #333;
-            color: #333;
-        }
-    </style>
     <h1>Upload File</h1>
     <form id="upload-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -71,5 +60,5 @@
                 uploadForm.submit();
             }
         });
-    </script>
+    </script> 
 {% endblock %}

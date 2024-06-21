@@ -7,7 +7,7 @@ from .forms import RegisterForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse
-from .decorators import staff_redirect
+from .decorators import staff_redirect 
 
 
 @method_decorator(login_required, name='dispatch')

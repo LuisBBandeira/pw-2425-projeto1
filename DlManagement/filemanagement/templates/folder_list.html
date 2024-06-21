@@ -1,19 +1,33 @@
 {% extends "base.html" %}
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/folder_list.css' %}">
+{% endblock %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="n-folder">
     <h1>Folders{% if parent_folder %} in {{ parent_folder.name }}{% endif %}</h1>
 </div>
 
 {% if folders %}
 <ul class="list-group">
     {% for folder in folders %}
-    <li class="list-group-item d-flex justify-content-between align-items-center">
+    <li class="list-folder">
         <a href="{% url 'folder_list' folder.id %}">{{ folder.name }}</a>
         <div>
-            <a href="{% url 'create_folder' folder.id %}" class="btn btn-sm btn-secondary">Add Subfolder</a>
+            <a href="{% url 'create_folder' folder.id %}" class="btn btn-sm btn-secondary">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="6" y1="1" x2="6" y2="11" />
+                  <line x1="1" y1="6" x2="11" y2="6" />
+                </svg>
+              </a>
             <form method="post" action="{% url 'delete_folder' folder.id %}" class="d-inline">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                <button type="submit" class="btn-del">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="1" y1="11" x2="11" y2="1" />
+                      <line x1="1" y1="1" x2="11" y2="11" />
+                    </svg>
+                  </button>
             </form>
         </div>
     </li>
@@ -24,6 +38,6 @@
 {% endif %}
 
 {% if parent_folder %}
-<a href="{% url 'folder_list'  %}" class="btn btn-secondary mt-3">Back to Parent Folder</a>
+<a href="{% url 'folder_list'  %}" class="btn-sec">Back to Parent Folder</a>
 {% endif %}
 {% endblock %}

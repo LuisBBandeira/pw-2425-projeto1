@@ -1,37 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DlManagement</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            margin: 0;
-        }
-        .sidebar {
-            height: 100vh;
-            width: 200px;
-            background-color: #f4f4f4;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
-        .sidebar a {
-            display: block;
-            color: #333;
-            padding: 10px;
-            text-decoration: none;
-            margin-bottom: 10px;
-        }
-        .sidebar a:hover {
-            background-color: #ddd;
-        }
-        .content {
-            padding: 20px;
-            flex: 1;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/base.css' %}">
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
     <div class="sidebar">
@@ -53,7 +30,6 @@
     </div>
     <div class="content">
         {% block content %}
-        <!-- Dynamic content will be injected here -->
         {% endblock %}
     </div>
 </body>
