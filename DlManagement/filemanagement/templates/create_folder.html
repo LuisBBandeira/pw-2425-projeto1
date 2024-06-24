@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/create_folder.css' %}">
+{% endblock %}
 {% block content %}
 <h1>Create new folder{% if parent_folder %} in {{ parent_folder.name }}{% endif %}</h1>
 <form method="post">
