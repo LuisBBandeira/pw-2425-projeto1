@@ -12,22 +12,14 @@
 <ul class="list-group">
     {% for folder in folders %}
     <li class="list-folder">
-        <a href="{% url 'folder_list' folder.id %}">{{ folder.name }}</a>
-        <div>
-            <a href="{% url 'create_folder' folder.id %}" class="btn btn-sm btn-secondary">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="6" y1="1" x2="6" y2="11" />
-                  <line x1="1" y1="6" x2="11" y2="6" />
-                </svg>
-              </a>
+        <div class="folder-actions">
+            <a class="slot-folder" href="{% url 'folder_list' folder.id %}"><img src="{% static 'icons/folder-icon.svg' %}" alt="Folder" class="folder-icon">{{ folder.name }}</a>
+            <a href="{% url 'create_folder' folder.id %}" class="btn btn-sm btn-secondary"> Add a subfolder</a>
             <form method="post" action="{% url 'delete_folder' folder.id %}" class="d-inline">
                 {% csrf_token %}
                 <button type="submit" class="btn-del">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="1" y1="11" x2="11" y2="1" />
-                      <line x1="1" y1="1" x2="11" y2="11" />
-                    </svg>
-                  </button>
+                  <img src="{% static 'icons/del-icon.svg' %}" alt="Delete" >
+                </button>
             </form>
         </div>
     </li>
@@ -36,8 +28,33 @@
 {% else %}
 <p>No folders found.</p>
 {% endif %}
+<h2>Files</h2>
+{% if files %}
+<ul class="list-group">
+  {% for file in files %}
+  <li class="list-file" >
+    <a><img src="{% static 'icons/file-icon.svg' %}" alt="File" >{{ file.file|cut:"uploads/"  }}</a>
+    <div class="slot-file">
+      <a href="{% url 'download_file' file.id %}" class="btn btn-sm btn-secondary">Download</a>
+      <form method="post" action="{% url 'delete_file' file.id %}" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn-del">
+          <img src="{% static 'icons/del-icon.svg' %}" alt="Delete" >
+        </button>
+      </form>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No files in this folder.</p>
+{% endif %}
 
 {% if parent_folder %}
-<a href="{% url 'folder_list'  %}" class="btn-sec">Back to Parent Folder</a>
+  {% if parent_folder.parent%}
+    <a href="{% url 'folder_list' parent_folder.parent.id %}" class="btn-sec" >Back </a>
+  {% else %}
+    <a href="{% url 'folder_list' %}" class="btn-sec" >Back </a>
+  {% endif %}
 {% endif %}
 {% endblock %}

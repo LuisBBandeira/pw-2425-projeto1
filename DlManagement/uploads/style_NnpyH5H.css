@@ -1,0 +1,41 @@
+/* event/static/event/css/style.css */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 5px;
+    margin-top: 2px;
+}
+
+input[type="datetime-local"] {
+    width: 100%;
+    padding: 5px;
+    margin-top: 2px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #3E8E41;
+}

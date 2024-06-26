@@ -2,7 +2,7 @@
 
 {% block head %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static '/css/upload.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/upload.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -14,12 +14,24 @@
             Drag and drop a file here or click to select a file
         </div>
         <input type="file" id="file-input" name="file" style="display: none;">
-        <button type="submit">Upload</button>
+        <button type="submit" class="upload-move-btn">Upload</button>
     </form>
     <h2>Uploaded Files</h2>
-    <ul>
+    <ul class="ul-list">
         {% for file in files %}
-            <li><a href="{% url 'download_file' file.id %}">{{ file.file.name }}</a></li>
+        <div class="list-file">
+            <span> <img src="{% static 'icons/file-icon.svg' %}" alt="File" class="file-icon">{{ file.file|cut:"uploads/"  }}</span> 
+            <form action="{% url 'move_file' file_id=file.id %}" method="post">
+                {% csrf_token %}
+                <select name="folder">
+                    <option value="">Select Folder</option>
+                    {% for folder in folders %}
+                        <option value="{{ folder.id }}" {% if file.folder and file.folder.id == folder.id %}selected{% endif %}>{{ folder.name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="upload-move-btn">Move</button>
+            </form>
+        </div>
         {% endfor %}
     </ul>
 {% endblock %}

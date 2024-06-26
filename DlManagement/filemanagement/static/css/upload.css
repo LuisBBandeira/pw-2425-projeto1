@@ -2,12 +2,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: auto;
     margin: 0;
+    overflow: hidden;
 }
 
 .content {
     text-align: center;
+    align-items: center;
 }
 
 .drag-and-drop {
@@ -60,7 +62,7 @@ a:hover {
     display: none;
 }
 
-button[type="submit"] {
+.upload-move-btn {
     background-color: #4CAF50;
     color: #fff;
     padding: 10px 20px;
@@ -69,8 +71,24 @@ button[type="submit"] {
     cursor: pointer;
 }
 
-button[type="submit"]:hover {
+.upload-move-btn:hover {
     background-color: #3e8e41;
+}
+
+.list-file{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.slot-file , .list-file span {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.list-file span , .file-icon{
+    margin-right: 2%;
 }
 
 ul {
