@@ -63,7 +63,7 @@ a:hover {
 }
 
 .upload-move-btn {
-    background-color: #4CAF50;
+    background-color: #337ab7;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -72,13 +72,14 @@ a:hover {
 }
 
 .upload-move-btn:hover {
-    background-color: #3e8e41;
+    background-color: #23527c;
 }
 
 .list-file{
     display: flex;
     justify-content: center;
     align-content: center;
+    margin-bottom: 15px;
 }
 
 .slot-file , .list-file span {

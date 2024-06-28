@@ -55,3 +55,17 @@ input[type="submit"]:hover {
 input[type="hidden"] {
     display: none;
 }
+
+button {
+  background-color: #337ab7;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+}
+
+button:hover {
+  background-color: #23527c;
+}

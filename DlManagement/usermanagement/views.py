@@ -8,17 +8,11 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 
-
-@method_decorator(login_required, name='dispatch')
-class IndexView(TemplateView):
-    template_name = 'index.html'
-
 class LogOut():
     def log_out(request):
         logout(request)
         return redirect('sign_in')
     
-
 class SignIn():
     def sign_in(request):
         if request.method == 'POST':
@@ -28,7 +22,7 @@ class SignIn():
                 login(request, user)
                 if user.is_staff:
                     return redirect(reverse('admin:index'))
-                return redirect('home')
+                return redirect('folder_list')
         else:
             form = LoginForm()
         return render(request, 'sign_in.html', {'form': form})
@@ -41,7 +35,7 @@ class SignUp():
             if form.is_valid():
                 user = form.save()
                 login(request, user)
-                return redirect('home')
+                return redirect('folder_list')
         else:
             form = RegisterForm()
         return render(request, 'sign_up.html', {'form': form})

@@ -31,6 +31,11 @@
   color: #23527c;
 }
 
+.list-file{
+  margin-bottom: 15px;
+}
+
+
 .btn-del {
   background-color: #e74c3c;
   color: #fff;
