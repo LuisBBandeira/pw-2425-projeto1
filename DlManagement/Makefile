@@ -10,6 +10,9 @@ install:
 shell:
 	poetry shell
 
+install-dependencies:
+	poetry install
+
 build:
 	$(DOCKER) build
 

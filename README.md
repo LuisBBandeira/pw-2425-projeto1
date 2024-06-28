@@ -39,10 +39,12 @@ The project defines specific URLs for file and folder management operations, suc
 
 ## Setup and Installation
 
-1. **Install Dependencies**: Run `make install` to install Poetry and manage dependencies.
-2. **Database Migrations**: Execute `make migrate` to set up your database.
-3. **Create Superuser**: Use `make createsuperuser` to create an admin account.
-4. **Running the Project**: Use `make up` to build and run the project.
+1. **Install**: Run `make install` to install Poetry.
+2. **Activate Virtual Environment**: Run `poetry shell` to activate the virtual environment.
+3. **Install Dependencies**: Run `make install-dependencies` to install dependencies.
+4. **Database Migrations**: Execute `make migrate` to set up your database.
+5. **Create Superuser**: Use `make createsuperuser` to create an admin account.
+6. **Running the Project**: Use `make up` to build and run the project.
 
 ## Docker Support
 
